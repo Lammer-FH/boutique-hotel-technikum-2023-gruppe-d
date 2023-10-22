@@ -9,14 +9,21 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "axios": "^1.5.0",
     "bootstrap": "^5.3.1",
     "bootstrap-vue-3": "^0.5.1",
     "pinia": "^2.1.6",
+    "source-map-url": "^0.4.1",
+    "urix": "^0.1.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.1",
     "vite": "^4.4.9"
-  }
+  },
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/3YQtLipU)\r # Projekt: Hotel Buchungsoberfläche",
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC"
 }
