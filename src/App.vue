@@ -1,85 +1,118 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+  <div id="app">
+    <header class="header">
+      <div class="logo">
+        <img src="@/assets/img/logo.jpg" alt="Logo" class="logo-image">
+      </div>
+      <nav class="navbar">
+        <button @click="changePage('Home')">Home</button>
+        <button @click="changePage('About')">About</button>
+        <button @click="changePage('Room')">Room</button>
+        <button @click="changePage('Impressum')">Impressum</button>
+        <button @click="changePage('Book')">Book</button>
+        <button @click="changePage('History')">History</button>
+        <button @click="changePage('Login')">Login</button>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <RouterView />
+    <component :is="currentPage"></component>
+  </div>
+  <HomePage v-if="currentPage === 'Home'" @changePage="changePage" />
+  <AboutPage v-if="currentPage === 'About'" @changePage="changePage" />
+  <RoomPage v-if="currentPage === 'Room'" />
+  <ImpressumPage v-if="currentPage === 'Impressum'" />
+  <BookPage v-if="currentPage === 'Book'" />
+  <HistoryPage v-if="currentPage === 'History'" />
+  <LoginPage v-if="currentPage === 'Login'" />
+
+
+
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script>
+import HomePage from "@/components/HomePage.vue";
+import AboutPage from "@/components/AboutPage.vue";
+import RoomPage from "@/components/RoomPage.vue";
+import ImpressumPage from "@/components/ImpressumPage.vue";
+import BookPage from "@/components/BookPage.vue";
+import HistoryPage from "@/components/HistoryPage.vue";
+import LoginPage from "@/components/LoginPage.vue";
+
+export default {
+  components: {
+    LoginPage,
+    HistoryPage,
+    BookPage,
+    ImpressumPage,
+    RoomPage,
+    HomePage,
+    AboutPage,
+  },
+  data() {
+    return {
+      currentPage: "Home",
+    };
+  },
+  methods: {
+    changePage(page) {
+      this.currentPage = page;
+    },
+  },
+};
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(198, 216, 245, 0.93);
+  padding: 10px;
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  margin-left: 10px;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.navbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.navbar button:hover {
+  text-decoration: underline;
 }
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.logo-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+@media (max-width: 768px) {
+  .navbar {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }
+
 </style>
