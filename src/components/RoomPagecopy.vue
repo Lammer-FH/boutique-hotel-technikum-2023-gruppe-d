@@ -50,7 +50,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   name: "RoomPage",
   data() {
@@ -71,14 +70,9 @@ export default {
       }
     },
     getImg(roomId) {
-      return import(`@/assets/img/rooms/${roomId}.jpg`);
+      return require(`@/assets/img/rooms/${roomId}.jpg`);
     },
-    bookRoom(roomId, roomsName) {
-      this.$router.push({ name: 'book', params: { roomId, roomsName } });
-    },
-    checkAvailability(roomId) {
-      this.$router.push({ name: 'book', params: { roomId } });
-    },
+   
   },
 };
 </script>

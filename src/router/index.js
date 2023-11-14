@@ -1,23 +1,33 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomePage from '@/components/HomePage.vue';
+import AboutPage from '@/components/AboutPage.vue';
+import RoomPage from '@/components/RoomPage.vue';
+import RoomPagecopy from '@/components/RoomPagecopy.vue';
+
+import ImpressumPage from '@/components/ImpressumPage.vue';
+import BookPage from '@/components/BookPage.vue';
+import HistoryPage from '@/components/HistoryPage.vue';
+import LoginPage from '@/components/LoginPage.vue';
+import ChoiceRoom_Booking from '@/components/ChoiceRoom_Booking.vue';
+
+
+const routes = [
+    { path: '/', component: HomePage },
+    { path: '/about', component: AboutPage },
+    { path: '/room', component: RoomPage },
+    { path: '/room2', component: RoomPagecopy },
+
+    { path: '/impressum', component: ImpressumPage },
+    { path: '/book/:roomId/:roomsName', name: 'book', component: BookPage },
+    { path: '/history', component: HistoryPage },
+
+    { path: '/booking', component: ChoiceRoom_Booking },
+    { path: '/login', component: LoginPage },
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
-})
+    history: createWebHistory(),
+    routes,
+});
 
-export default router
+export default router;

@@ -1,9 +1,13 @@
-import { createApp, ref } from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
+import router from './router';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import BootstrapVue3 from 'bootstrap-vue-3'
 
 const app = createApp(App);
 
-const currentPage = ref('Home');
+app.use(router); // Use the router
+app.use(BootstrapVue3)
 
-app.config.globalProperties.$currentPage = currentPage;
 app.mount('#app');

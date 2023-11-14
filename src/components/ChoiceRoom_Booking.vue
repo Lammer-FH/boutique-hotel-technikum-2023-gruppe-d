@@ -6,18 +6,20 @@
       <div class="card p-4">
         <div class="mb-3">
           <label for="roomId" class="form-label">Room Id:</label>
-          <p class="form-control-static">{{ $route.params.roomId }} </p>
-        </div>
+          <p class="form-control-static">{{ selectedRoom }}</p>        </div>
+
         <div class="mb-3">
-          <label for="roomsName" class="form-label">Room Name:</label>
-          <p class="form-control-static"> {{ $route.params.roomsName }}</p>
+          <label for="selectedRoom" class="form-label">Select Room:</label>
+          <select v-model="selectedRoom" class="form-select" id="selectedRoom">
+            <option v-for="room in roomOptions" :key="room.id" :value="room.id">{{ room.roomsName }}</option>
+          </select>
         </div>
+
         <div class="row g-3">
           <div class="col-md-6">
             <label for="firstname" class="form-label">First Name:</label>
             <input v-model="bookingData.firstname" type="text" class="form-control" id="firstname" required>
           </div>
-
           <div class="col-md-6">
             <label for="lastname" class="form-label">Last Name:</label>
             <input v-model="bookingData.lastname" type="text" class="form-control" id="lastname" required>
@@ -42,6 +44,7 @@
             <label for="toDate" class="form-label">To Date:</label>
             <input v-model="bookingData.toDate" type="date" class="form-control" id="toDate" required>
           </div>
+          <!-- ... (other input fields) ... -->
 
           <div class="col-12">
             <button type="submit" class="btn btn-primary">Book Now</button>
@@ -56,7 +59,7 @@
 import axios from 'axios';
 
 export default {
-  name: "BookingPage",
+  name: "BookingChoice",
   data() {
     return {
       bookingData: {
@@ -67,12 +70,25 @@ export default {
         fromDate: '',
         toDate: ''
       },
+      roomOptions: [], // List of available room options
+      selectedRoom: this.$route.params.roomId, // Default to the Room Id from the route
     };
   },
+  mounted() {
+    // Fetch the list of available room options
+    this.fetchRoomOptions();
+  },
   methods: {
+    async fetchRoomOptions() {
+      try {
+        const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
+        this.roomOptions = response.data;
+      } catch (error) {
+        console.error('Error fetching room options:', error);
+      }
+    },
     async bookRoom() {
-      const roomId = this.$route.params.roomId;
-
+      const roomId = this.selectedRoom; // Use the selected room from the dropdown
       const requestData = {
         firstname: this.bookingData.firstname,
         lastname: this.bookingData.lastname,
