@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/components/HomePage.vue';
 import AboutPage from '@/components/AboutPage.vue';
 import RoomPage from '@/components/RoomPage.vue';
-import RoomPagecopy from '@/components/RoomPagecopy.vue';
 
 import ImpressumPage from '@/components/ImpressumPage.vue';
 import BookPage from '@/components/BookPage.vue';
@@ -15,7 +14,6 @@ const routes = [
     { path: '/', component: HomePage },
     { path: '/about', component: AboutPage },
     { path: '/room', component: RoomPage },
-    { path: '/room2', component: RoomPagecopy },
 
     { path: '/impressum', component: ImpressumPage },
     { path: '/book/:roomId/:roomsName', name: 'book', component: BookPage },
