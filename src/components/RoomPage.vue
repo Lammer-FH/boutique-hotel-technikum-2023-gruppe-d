@@ -49,6 +49,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 
 export default {
@@ -71,7 +72,7 @@ export default {
       }
     },
     getImg(roomId) {
-      return import(`@/assets/img/rooms/${roomId}.jpg`);
+      return (`src/assets/img/rooms/${roomId}.jpg`);
     },
     bookRoom(roomId, roomsName) {
       this.$router.push({ name: 'book', params: { roomId, roomsName } });
