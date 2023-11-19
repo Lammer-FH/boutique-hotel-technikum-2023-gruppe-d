@@ -1,7 +1,8 @@
 <template>
+
   <div class="container mt-4">
     <div class="row">
-      <div v-for="room in rooms" :key="room.id" class="col-md-4 mb-4">
+      <div v-for="(room, index) in paginatedRooms" :key="index" class="col-md-4 mb-4">
         <div class="card">
           <img :src="getImg(room.id)" class="card-img-top" alt="Room Image">
           <div class="card-body">
@@ -27,12 +28,14 @@
                   <th scope="row">Extras:</th>
                   <td>
                     <div class="room-extras">
-                      <span v-for="(extra, index) in room.extras" :key="index">
-                        <template v-if="extra[Object.keys(extra)[0]] === 1">
-                          {{ index > 0 ? ' - ' : '' }}{{ Object.keys(extra)[0] }}
-                        </template>
-                      </span>
-                    </div>
+                      <template v-for="(extra, index) in getFormattedExtras(room.extras)" :key="index">
+          <span v-if="index > 0"> - </span>
+          <span>
+            {{ extra.name }}
+            <component :is="extra.icon"></component>
+          </span>
+        </template>
+      </div>
                   </td>
                 </tr>
               </tbody>
@@ -45,6 +48,23 @@
         </div>
       </div>
     </div>
+    <nav aria-label="Room Pagination" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
+          <a class="page-link" @click="goToPage(currentPage - 1)" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="page in totalPages" :key="page" :class="{ 'active': currentPage === page }">
+          <a class="page-link" @click="goToPage(page)" href="#">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ 'disabled': currentPage === totalPages }">
+          <a class="page-link" @click="goToPage(currentPage + 1)" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -56,7 +76,19 @@ export default {
   data() {
     return {
       rooms: [],
+      itemsPerPage: 3,
+      currentPage: 1,
     };
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.rooms.length / this.itemsPerPage);
+    },
+    paginatedRooms() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.rooms.slice(startIndex, endIndex);
+    },
   },
   created() {
     this.fetchRooms();
@@ -70,14 +102,35 @@ export default {
         console.error('Error fetching room data:', error);
       }
     },
+    goToPage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+      }
+    },
     getImg(roomId) {
       return (`src/assets/img/rooms/${roomId}.jpg`);
     },
     bookRoom(roomId, roomsName) {
       this.$router.push({ name: 'book', params: { roomId, roomsName } });
     },
-    checkAvailability(roomId) {
-      this.$router.push({ name: 'book', params: { roomId } });
+   
+    getFormattedExtras(extras) {
+      const extrasMapping = {
+        livingroom: { name: 'Livingroom', icon: 'b-icon-lamp' },
+        bathroom: { name: 'Bathroom', icon: 'b-icon-badge-wc' },
+        minibar: { name: 'Minibar', icon: 'b-icon-cup-hot' },
+        television: { name: 'Television', icon: 'b-icon-tv' },
+        aircondition: { name: 'Air Condition', icon: 'b-icon-snow3' },
+        wifi: { name: 'Wi-Fi', icon: 'b-icon-wifi-2' },
+        breakfast: { name: 'Breakfast', icon: 'b-icon-egg-fried' },
+        'handicapped accessible': { name: 'Handicapped Accessible', icon: 'b-icon-person-wheelchair' },
+      };
+
+      return extras.map(extra => {
+        const extraName = Object.keys(extra)[0];
+        const formattedExtra = extrasMapping[extraName] || { name: extraName, icon: null };
+        return formattedExtra;
+      });
     },
   },
 };

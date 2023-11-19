@@ -1,9 +1,8 @@
 <template>
-  <div class="container-fluid"> <!-- Use container-fluid to make it full-screen -->
+  <div class="container-fluid"> 
 
       <div class="home">
         <div class="bg-light text-light p-3">
-          <!-- Blue Part -->
         </div>
 
     </div>
@@ -53,6 +52,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* You don't need custom styles as Bootstrap classes are used */
-</style>
