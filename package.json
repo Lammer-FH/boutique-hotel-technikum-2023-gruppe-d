@@ -14,7 +14,7 @@
     "bootstrap-icons": "^1.11.1",
     "bootstrap-icons-vue": "^1.11.1",
     "bootstrap-vue-3": "^0.5.1",
-    "pinia": "^2.1.6",
+    "pinia": "^2.1.7",
     "source-map-url": "^0.4.1",
     "urix": "^0.1.0",
     "vue": "^3.3.4",
