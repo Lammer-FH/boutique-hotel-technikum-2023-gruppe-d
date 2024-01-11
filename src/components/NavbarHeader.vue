@@ -18,43 +18,56 @@
         <b-nav-item to="/impressum">Impressum</b-nav-item>
         <b-nav-item to="/booking">Book</b-nav-item>
         <b-nav-item to="/history">History</b-nav-item>
+        <b-nav-item to="/about">About</b-nav-item>
 
-        <!-- About Link -->
-        <b-nav-item to="/about">
-          About
+        <b-nav-item v-if="!isLoggedIn" to="/signin">
+          <b-icon-arrow-right-square></b-icon-arrow-right-square>
+          <span class="ml-2">Sign in</span>
         </b-nav-item>
 
-        <b-nav-item to="/login">
-          <b-dropdown right split text="Account" variant="dark">
-            <b-dropdown-item>
-              <b-nav-item to="/login" style="font-size: 14px;">
-                <b-icon-person-fill></b-icon-person-fill>
-                <span style="margin-left: 10px;">My profile</span>
-              </b-nav-item>
-            </b-dropdown-item>
-
-            <b-dropdown-item>
-              <b-nav-item to="/login" style="font-size: 14px;">
-                <b-icon-arrow-right-square></b-icon-arrow-right-square>
-                <span style="margin-left: 10px;">Sign in</span>
-              </b-nav-item>
-            </b-dropdown-item>
-
-            <b-dropdown-divider></b-dropdown-divider>
-
-            <b-dropdown-item>
-              <b-nav-item to="/login" style="font-size: 14px;">
-                <b-icon-person-plus></b-icon-person-plus>
-                <span style="margin-left: 10px;">Registration</span>
-              </b-nav-item>
-            </b-dropdown-item>
-          </b-dropdown>
+        <b-nav-item v-if="!isLoggedIn" to="/register">
+          <b-icon-person-plus></b-icon-person-plus>
+          <span class="ml-2">Registration</span>
         </b-nav-item>
 
+        <b-nav-item v-if="isLoggedIn" @click="logout">
+          <b-icon-arrow-right-square></b-icon-arrow-right-square>
+          <span class="ml-2">Sign out</span>
+        </b-nav-item>
+
+        <b-nav-item v-if="isLoggedIn" to="/myprofile">
+          <b-icon-person-fill></b-icon-person-fill>
+          <span class="ml-2">My profile</span>
+        </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </template>
+
+<script>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const isLoggedIn = ref(!!localStorage.getItem('authToken'));
+    const router = useRouter();
+
+    const logout = () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+      isLoggedIn.value = false;
+      router.push('/signin');
+    };
+
+    onMounted(() => {
+      isLoggedIn.value = !!localStorage.getItem('authToken');
+    });
+
+    return { isLoggedIn, logout };
+  },
+};
+</script>
 
 <style scoped>
 .logo-image {
