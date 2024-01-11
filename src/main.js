@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia'
 import App from './App.vue';
 import router from './router';
 import 'bootstrap/dist/css/bootstrap.css'
@@ -9,16 +8,15 @@ import {BootstrapIconsPlugin} from "bootstrap-icons-vue"
 import { createPinia } from 'pinia';
 
 
-const pinia = createPinia()
 const app = createApp(App);
 
-app.use(router); 
+app.use(router); // Use the router
 app.use(BootstrapVue3)
 app.use(BootstrapIconsPlugin);
 const pinia = createPinia();
 
 
-app.use(pinia)
+
 app.mount('#app');
 app.use(pinia);
 
