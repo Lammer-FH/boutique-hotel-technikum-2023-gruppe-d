@@ -3,15 +3,13 @@
     <h1 class="text-center mb-4">Book a Room</h1>
 
     <div class="card p-4">
+      <RoomCard :room="room" />
+      <br>
+      <div class="mb-3">
+        <label for="roomId" class="form-label">Personliche Daten</label>
+    
+      </div>
       
-      <div class="mb-3">
-        <label for="roomId" class="form-label">Room Id:</label>
-        <p class="form-control-static">{{ $route.params.roomId }}</p>
-      </div>
-      <div class="mb-3">
-        <label for="roomsName" class="form-label">Room Name:</label>
-        <p class="form-control-static">{{ $route.params.roomsName }}</p>
-      </div>
       <div class="row g-3">
         <div class="col-md-6">
           <label for="firstname" class="form-label">First Name:</label>
@@ -51,25 +49,43 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,onBeforeMount  } from 'vue';
 import { useRouter, useRoute } from 'vue-router'; // استيراد useRouter و useRoute من vue-router
 import { useBookStore } from  '@/stores/bookStore.js'; // حدّث المسار إلى مكان تعريف store
+import { useRoomStore } from '../stores/roomStore';
+import { computed } from 'vue';
+import RoomCard from '@/components/RoomCard.vue'; // تأكد من أن المسار صحيح
+
+
 
 export default {
   name: "BookPage",
+  components: {
+    RoomCard, // تأكد من إضافة هذا
+  },
   setup() {
     const bookStore = useBookStore();
     const router = useRouter();
     const route = useRoute();
     const firstname = ref("");
+    const roomStore = useRoomStore();
     const lastname = ref("");
     const email = ref("");
     const birthdate = ref("");
+    const room = computed(() => {
+      const roomId = route.params.roomId;
+      return roomStore.rooms[roomId];
+    });
     const goBack =() => {
       router.push({
         name: 'Availability', // تحديد اسم المسار الخاص بصفحة CheckRoomAvailability.vue
       });
     };
+    onBeforeMount(() => {
+      if (roomStore.rooms.length === 0) {
+        roomStore.fetchRooms();
+      }
+    });
     onMounted(() => {
       const userDetails = JSON.parse(localStorage.getItem('userDetails'));
       if (userDetails) {
@@ -95,7 +111,7 @@ export default {
       });
     };
 
-    return { firstname, lastname, email, birthdate, navigateToConfirmationPage,goBack, };
+    return { room, firstname, lastname, email, birthdate, navigateToConfirmationPage,goBack, };
   }
   
 };

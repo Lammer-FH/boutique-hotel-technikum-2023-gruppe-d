@@ -29,7 +29,7 @@ const routes = [
 
 
   {
-    path: '/confirmation', // Define the path for ConfirmationPage
+    path: '/confirmation/', // Define the path for ConfirmationPage
     name: 'confirmation', // Give it a unique name
     component: ConfirmationPage, // Specify the component to render
   },
