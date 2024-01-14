@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <router-view></router-view> <!-- Router view to display components based on routes -->
-    <FooterHomepage></FooterHomepage> <!-- Hinzufügen der FooterHomepage-Komponente -->
+    <router-view></router-view> 
+    <FooterHomepage></FooterHomepage> 
 
   </div>
 </template>
 
 <script>
 import Navbar from './components/NavbarHeader.vue';
-import FooterHomepage from './components/FooterHomepage.vue'; // Import der FooterHomepage-Komponente
+import FooterHomepage from './components/FooterHomepage.vue'; 
 
 
 export default {

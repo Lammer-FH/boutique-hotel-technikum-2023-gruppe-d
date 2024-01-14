@@ -15,10 +15,12 @@
     "bootstrap-icons-vue": "^1.11.1",
     "bootstrap-vue-3": "^0.5.1",
     "pinia": "^2.1.7",
+    "print-js": "^1.6.0",
     "source-map-url": "^0.4.1",
     "urix": "^0.1.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
+    "vue3-google-map": "^0.18.0",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

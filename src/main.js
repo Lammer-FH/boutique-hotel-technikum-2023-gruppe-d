@@ -8,9 +8,10 @@ import {BootstrapIconsPlugin} from "bootstrap-icons-vue"
 import { createPinia } from 'pinia';
 
 
+
 const app = createApp(App);
 
-app.use(router); // Use the router
+app.use(router); 
 app.use(BootstrapVue3)
 app.use(BootstrapIconsPlugin);
 const pinia = createPinia();

@@ -2,16 +2,21 @@
   <div class="black-part">
     <div class="footer">
       <ul>
-        <li>About Us</li>
+        <li>        <b-nav-item to="/about">About</b-nav-item>
+</li>
       </ul>
       <ul>
-        <li>Impressum</li>
+        <li>        <b-nav-item to="/impressum">Impressum</b-nav-item>
+</li>
       </ul>
-      <div class="social-links">
-        <a href="#" class="social-link">Contact</a>
-        <a href="#" class="social-link">Twitter</a>
-        <a href="AboutPage.vue" class="social-link">Facebook</a>
-      </div>
+
+      <ul>
+<li>
+  <b-nav-item to="/about">Contact</b-nav-item>
+</li>
+
+      </ul>
+      
     </div>
   </div>
 </template>

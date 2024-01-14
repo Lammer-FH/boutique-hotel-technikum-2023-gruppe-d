@@ -2,19 +2,19 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useRoomStore = defineStore({
-  id: 'room', // Unique ID for the store
+  id: 'room', 
   state: () => ({
-    rooms: [], // Initialize state properties
+    rooms: [],
     reservationId: null,
   }),
   getters: {
     getRoomById: (state) => (id) => {
       return state.rooms.find(room => room.id === id);
     },
-    // بقية الجيترز
+   
   },
   actions: {
-    // Define actions
+    
     async fetchRooms() {
 
       return axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms')
@@ -27,9 +27,9 @@ export const useRoomStore = defineStore({
     },
     async bookRoom(roomData) {
         try {
-          // منطق لحجز الغرفة
+         
           const response = await axios.post('API_URL_FOR_BOOKING', roomData);
-          this.reservationId = response.data; // يفترض أن الاستجابة تحتوي على رقم الحجز
+          this.reservationId = response.data; 
         } catch (error) {
           console.error('Error booking room:', error);
         }

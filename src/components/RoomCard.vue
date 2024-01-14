@@ -1,9 +1,13 @@
 <template>
     <div class="card">
-      <img :src="getImg(room.id)" style="max-width: 400px; height: auto; display: block; margin: 0 auto;">
+      <img :src="getImg(room.id)" class="card-img-top" style="max-width:  290px;  margin: auto;">
       <div class="card-body">
         <table class="table">
           <tbody>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+            </tr>
             <tr>
               <th scope="row">Room Number:</th>
               <td>{{ room.roomsNumber }}</td>
@@ -48,7 +52,7 @@
     props: {
       room: {
         type: Object,
-        required: true
+        required: false
       }
     },
     methods: {

@@ -15,9 +15,7 @@
         </b-nav-item>
 
         <b-nav-item to="/room">Room</b-nav-item>
-        <b-nav-item to="/impressum">Impressum</b-nav-item>
         <b-nav-item to="/booking">Book</b-nav-item>
-        <b-nav-item to="/history">History</b-nav-item>
         <b-nav-item to="/about">About</b-nav-item>
 
         <b-nav-item v-if="!isLoggedIn" to="/signin">
@@ -38,6 +36,10 @@
         <b-nav-item v-if="isLoggedIn" to="/myprofile">
           <b-icon-person-fill></b-icon-person-fill>
           <span class="ml-2">My profile</span>
+        </b-nav-item>
+        <b-nav-item v-if="isLoggedIn" to="/history">
+          <b-icon-clock-history></b-icon-clock-history>
+          <span class="ml-2">History</span>
         </b-nav-item>
       </b-navbar-nav>
     </b-collapse>

@@ -27,7 +27,7 @@
     methods: {
       goToPage(page) {
         if (page >= 1 && page <= this.totalPages) {
-          this.$emit("goToPage", page); // Emit the "goToPage" event to the parent component (BookPage)
+          this.$emit("goToPage", page); 
         }
       },
     },
